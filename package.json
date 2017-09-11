@@ -5,7 +5,7 @@
   "author": "Ross Creighton",
   "license": "MIT",
   "scripts": {
-    "provision-server": "DEBUG=http babel-node ./provisionServer.js"
+    "provision-server": "DEBUG=http babel-node ./scripts/provisionServer.js"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
