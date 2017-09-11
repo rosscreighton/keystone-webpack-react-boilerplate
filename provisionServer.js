@@ -21,6 +21,12 @@ async function main() {
   const sshClient = new nodeSSH();
   await connectSSH(sshClient, dropletAddress);
   await installNginx(sshClient);
+  await installNVM(sshClient);
+  console.log(`getting a new shell session`);
+  sshClient.dispose();
+  await connectSSH(sshClient, dropletAddress);
+  await installNode(sshClient);
+  console.log('DONE');
 }
 
 async function createDroplet() {
@@ -73,6 +79,23 @@ async function installNginx(sshClient) {
   console.log(update.stderr);
   const install = await sshClient.execCommand('apt-get -y install nginx');
   console.log(install.stderr);
+}
+
+async function installNVM(sshClient) {
+  console.log(`installing build packages`);
+  const buildTools = await sshClient.execCommand('apt-get -y install build-essential libssl-dev');
+  console.log(buildTools.stderr);
+  console.log(`installing nvm`);
+  const nvm = await sshClient.execCommand('curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.4/install.sh | bash');
+  console.log(nvm.stderr);
+}
+
+async function installNode(sshClient) {
+  console.log(`installing node`);
+  const source = await sshClient.execCommand('source ~/.nvm/nvm.sh');
+  console.log(source.stderr);
+  const node = await sshClient.execCommand('bash -ic "nvm install node"');
+  console.log(node.stderr);
 }
 
 main();
