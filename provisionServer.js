@@ -12,19 +12,12 @@ const DOClient = new doapi({
 });
 
 async function main() {
-  //const droplets = await DOClient.dropletGetAll();
-  //droplets.forEach(droplet => {
-    //DOClient.dropletDestroy(droplet.id);
-  //})
   const dropletId = await createDroplet();
   const dropletAddress = await getDropletAddress(dropletId);
   const sshClient = new nodeSSH();
   await connectSSH(sshClient, dropletAddress);
   await installNginx(sshClient);
   await installNVM(sshClient);
-  console.log(`getting a new shell session`);
-  sshClient.dispose();
-  await connectSSH(sshClient, dropletAddress);
   await installNode(sshClient);
   await installYarn(sshClient);
   console.log('DONE');
