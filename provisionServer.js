@@ -26,6 +26,7 @@ async function main() {
   sshClient.dispose();
   await connectSSH(sshClient, dropletAddress);
   await installNode(sshClient);
+  await installYarn(sshClient);
   console.log('DONE');
 }
 
@@ -96,6 +97,18 @@ async function installNode(sshClient) {
   console.log(source.stderr);
   const node = await sshClient.execCommand('bash -ic "nvm install node"');
   console.log(node.stderr);
+}
+
+async function installYarn(sshClient) {
+  console.log(`installing yarn`);
+  const repo = await sshClient.execCommand('curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -');
+  console.log(repo.stderr);
+  const repo2 = await sshClient.execCommand('echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list');
+  console.log(repo2.stderr);
+  const update = await sshClient.execCommand('apt-get update');
+  console.log(update.stderr);
+  const yarn = await sshClient.execCommand('apt-get -y install yarn');
+  console.log(yarn.stderr);
 }
 
 main();
