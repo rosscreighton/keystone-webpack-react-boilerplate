@@ -20,6 +20,7 @@ async function main() {
   await installNVM(sshClient);
   await installNode(sshClient);
   await installYarn(sshClient);
+  sshClient.dispose();
   console.log('DONE');
 }
 
