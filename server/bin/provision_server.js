@@ -11,17 +11,23 @@ const DOClient = new doapi({
   token: accessToken,
 });
 
+const sshClient = new nodeSSH();
+
 async function main() {
   const dropletId = await createDroplet();
   const dropletAddress = await getDropletAddress(dropletId);
-  const sshClient = new nodeSSH();
   await connectSSH(sshClient, dropletAddress);
-  await installNginx(sshClient);
-  await installNVM(sshClient);
-  await installNode(sshClient);
-  await installYarn(sshClient);
+  await installNginx();
+  await installNVM();
+  await installNode();
+  await installYarn();
   sshClient.dispose();
   console.log('DONE');
+}
+
+async function execCommand(command) {
+  const res = await sshClient.execCommand(command);
+  console.log(res.stderr);
 }
 
 async function createDroplet() {
@@ -68,41 +74,30 @@ async function connectSSH(sshClient, dropletAddress) {
   }
 }
 
-async function installNginx(sshClient) {
+async function installNginx() {
   console.log(`installing nginx`);
-  const update = await sshClient.execCommand('apt-get update');
-  console.log(update.stderr);
-  const install = await sshClient.execCommand('apt-get -y install nginx');
-  console.log(install.stderr);
+  await execCommand('apt-get update');
+  await execCommand('apt-get -y install nginx');
 }
 
-async function installNVM(sshClient) {
+async function installNVM() {
   console.log(`installing build packages`);
-  const buildTools = await sshClient.execCommand('apt-get -y install build-essential libssl-dev');
-  console.log(buildTools.stderr);
+  await execCommand('apt-get -y install build-essential libssl-dev');
   console.log(`installing nvm`);
-  const nvm = await sshClient.execCommand('curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.4/install.sh | bash');
-  console.log(nvm.stderr);
+  await execCommand('curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.4/install.sh | bash');
 }
 
-async function installNode(sshClient) {
+async function installNode() {
   console.log(`installing node`);
-  const source = await sshClient.execCommand('source ~/.nvm/nvm.sh');
-  console.log(source.stderr);
-  const node = await sshClient.execCommand('bash -ic "nvm install node"');
-  console.log(node.stderr);
+  await execCommand('bash -ic "nvm install node"');
 }
 
-async function installYarn(sshClient) {
+async function installYarn() {
   console.log(`installing yarn`);
-  const repo = await sshClient.execCommand('curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -');
-  console.log(repo.stderr);
-  const repo2 = await sshClient.execCommand('echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list');
-  console.log(repo2.stderr);
-  const update = await sshClient.execCommand('apt-get update');
-  console.log(update.stderr);
-  const yarn = await sshClient.execCommand('apt-get -y install yarn');
-  console.log(yarn.stderr);
+  await execCommand('curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -');
+  await execCommand('echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list');
+  await execCommand('apt-get update');
+  await execCommand('apt-get -y install yarn');
 }
 
 main();

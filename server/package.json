@@ -1,0 +1,19 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "babel-node ./src/index.js",
+    "provision-server": "DEBUG=http babel-node ./bin/provision_server.js"
+  },
+  "dependencies": {
+    "keystone": "^4.0.0-beta.5"
+  },
+  "devDependencies": {
+    "babel-preset-env": "^1.6.0",
+    "babel-cli": "^6.26.0",
+    "doapi": "^0.1.4",
+    "node-ssh": "^4.2.3"
+  }
+}

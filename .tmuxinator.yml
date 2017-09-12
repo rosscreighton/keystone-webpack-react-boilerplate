@@ -31,10 +31,9 @@ root: ~/projects/mister
 windows:
   - editor:
     - vim
+  - shell:
   - server:
-    - echo 'server goes here'
-  - mongo: docker run -ti --rm --name mister_mongo mongo:3.4.7
+    - cd server sleep 5 && yarn start
+  - mongo: docker run -ti --rm --name mister_mongo -p 27017:27017 mongo:3.4.7
   - mongo-shell:
       - echo 'shell goes here'
-  - shell:
-      - echo 'blank shell stuff'
