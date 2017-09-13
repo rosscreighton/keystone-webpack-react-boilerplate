@@ -1,8 +1,13 @@
 import keystone from 'keystone';
 
 keystone.init({
-  'name': 'mister',
-  'cookie secret': 'secure string'
+  'name': 'MISTER',
+  'cookie secret': 'secure string',
+  'user model': 'User',
+  'auth': true,
+  'auto update': true,
 });
+
+keystone.import('models');
 
 keystone.start();
