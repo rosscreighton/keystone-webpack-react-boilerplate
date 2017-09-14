@@ -5,16 +5,17 @@
   "license": "MIT",
   "scripts": {
     "start:dev": "yarn run build:watch && ./node_modules/.bin/nodemon ./dist/index.js",
-    "build:watch": "./node_modules/.bin/babel -w ./src --out-dir ./dist &",
+    "build:watch": "./node_modules/.bin/babel -w ./src --copy-files --out-dir ./dist &",
     "provision-server": "DEBUG=http babel-node ./bin/provision_server.js"
   },
   "dependencies": {
-    "keystone": "^4.0.0-beta.5"
-  },
-  "devDependencies": {
+    "keystone": "^4.0.0-beta.5",
+    "pug": "^2.0.0-rc.4",
     "babel-cli": "^6.26.0",
     "babel-plugin-add-module-exports": "^0.2.1",
-    "babel-preset-env": "^1.6.0",
+    "babel-preset-env": "^1.6.0"
+  },
+  "devDependencies": {
     "doapi": "^0.1.4",
     "node-ssh": "^4.2.3",
     "nodemon": "^1.12.0"

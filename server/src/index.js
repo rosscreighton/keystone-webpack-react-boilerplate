@@ -1,4 +1,5 @@
 import keystone from 'keystone';
+import routes from './routes';
 
 keystone.init({
   'name': 'MISTER',
@@ -6,6 +7,10 @@ keystone.init({
   'user model': 'User',
   'auth': true,
   'auto update': true,
+  'session': false,
+  'views': 'templates/views',
+  'view engine': 'pug',
+  'routes': routes,
 });
 
 keystone.import('models');
