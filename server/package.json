@@ -5,7 +5,8 @@
   "license": "MIT",
   "scripts": {
     "start:dev": "yarn run build:watch && ./node_modules/.bin/nodemon ./dist/index.js",
-    "build:watch": "./node_modules/.bin/babel -w ./src --copy-files --out-dir ./dist &",
+    "build": "./node_modules/.bin/babel ./src --copy-files --out-dir ./dist",
+    "build:watch": "yarn run build -w &",
     "provision-server": "DEBUG=http babel-node ./bin/provision_server.js"
   },
   "dependencies": {
