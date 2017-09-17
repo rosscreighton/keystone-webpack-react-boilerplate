@@ -22,6 +22,7 @@ async function main() {
   const dropletAddress = await getDropletAddress(dropletId);
   await connectSSH(sshClient, dropletAddress);
   await installNginx();
+  await configureNginx();
   await installNVM();
   await installNode();
   await installYarn();
@@ -82,6 +83,14 @@ async function installNginx() {
   console.log(`installing nginx`);
   await execCommand('apt-get update');
   await execCommand('apt-get -y install nginx');
+}
+
+async function configureNginx() {
+  console.log('configuring nginx');
+  sshClient.putFile('./etc/nginx.conf', '/etc/nginx/sites-available/default').then(
+    async () => { await execCommand('service nginx restart'); },
+    (err) => { console.log(err); }
+  )
 }
 
 async function installNVM() {
