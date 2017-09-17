@@ -20,3 +20,4 @@ keystone.init({
 keystone.import('models');
 
 keystone.start();
+console.log(`keystone running in ${keystone.get('env')} mode`);
