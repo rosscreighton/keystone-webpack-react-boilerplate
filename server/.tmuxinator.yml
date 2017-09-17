@@ -1,5 +1,5 @@
 name: mister
-root: ~/projects/mister
+root: ~/projects/mister/server
 
 # Optional tmux socket
 # socket_name: foo
@@ -8,7 +8,7 @@ root: ~/projects/mister
 # pre: sudo /etc/rc.d/mysqld start
 
 # Runs in each window and pane before window/pane specific commands. Useful for setting up interpreter versions.
-#pre_window: pyenv activate crumb_env
+#pre_window: pyenv activate mister_env
 
 # Pass command line options to tmux. Useful for specifying a different tmux.conf.
 # tmux_options: -f ~/.tmux.mac.conf
@@ -26,14 +26,13 @@ root: ~/projects/mister
 # attach: false
 
 # Runs after everything. Use it to attach to tmux with custom options etc.
-# post: tmux -CC attach -t crumb-api
+# post: tmux -CC attach -t mister
 
 windows:
   - editor:
     - vim
   - shell:
   - server:
-    - cd server
     - sleep 5 && yarn start:dev
   - mongo: docker run -ti --rm --name mister_mongo -p 27017:27017 mongo:3.4.7
   - mongo-shell:
