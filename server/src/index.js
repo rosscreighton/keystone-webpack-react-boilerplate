@@ -7,7 +7,7 @@ keystone.init({
   'user model': 'User',
   'auth': true,
   'auto update': true,
-  'session': false,
+  'session store': 'mongo',
   'views': 'templates/views',
   'view engine': 'pug',
   'routes': routes,
