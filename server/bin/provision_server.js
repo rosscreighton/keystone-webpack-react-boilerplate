@@ -1,11 +1,15 @@
 import doapi from 'doapi';
 import nodeSSH from 'node-ssh';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const args = process.argv.slice(2);
 
-const accessToken = args[0];
-const dropletName = args[1];
-const sshFingerprint = args[2];
+const dropletName = args[0];
+const accessToken = process.env.DIGITAL_OCEAN_TOKEN;
+const sshFingerprint = process.env.SSH_FINGERPRINT;
+const deployBotSshFingerprint = process.env.DEPLOYBOT_SSH_FINGERPRINT;
 
 const DOClient = new doapi({
   token: accessToken,
@@ -38,7 +42,7 @@ async function createDroplet() {
     region: 'nyc3',
     size: '512mb',
     image: 'mongodb-16-04',
-    ssh_keys: [sshFingerprint],
+    ssh_keys: [sshFingerprint, deployBotSshFingerprint],
   });
 
   return res.id;
