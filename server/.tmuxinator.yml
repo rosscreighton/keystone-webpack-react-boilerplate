@@ -1,4 +1,4 @@
-name: mister
+name: mister-server
 root: ~/projects/mister/server
 
 # Optional tmux socket
