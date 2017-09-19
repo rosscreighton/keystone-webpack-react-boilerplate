@@ -4,9 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start:prod": "./node_modules/.bin/pm2 start dist/index.js --name 'server'",
-    "restart:prod": "./node_modules/.bin/pm2 delete server && yarn run start:prod",
-    "start:dev": "yarn run build:watch && ./node_modules/.bin/nodemon ./dist/index.js",
+    "start:dev": "yarn run build:watch && ./node_modules/.bin/nodemon -r dotenv/config ./dist/index.js",
     "build": "./node_modules/.bin/babel ./src --copy-files --out-dir ./dist",
     "build:watch": "yarn run build -w &",
     "provision-server": "DEBUG=http babel-node ./bin/provision_server.js"
@@ -15,7 +13,6 @@
     "connect-mongo": "^1.3.2",
     "dotenv": "^4.0.0",
     "keystone": "^4.0.0-beta.5",
-    "pm2": "^2.7.0",
     "pug": "^2.0.0-rc.4"
   },
   "devDependencies": {

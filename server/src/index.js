@@ -1,6 +1,3 @@
-import dotenv from 'dotenv';
-dotenv.config();
-
 import keystone from 'keystone';
 import routes from './routes';
 
@@ -19,5 +16,11 @@ keystone.init({
 
 keystone.import('models');
 
-keystone.start();
-console.log(`keystone running in ${keystone.get('env')} mode`);
+keystone.start(() => {
+  console.log(`keystone running in ${keystone.get('env')} mode`);
+
+  if (process.env.NODE_ENV === 'production') {
+    // signals to pm2 that app is ready
+    process.send('ready');
+  }
+});

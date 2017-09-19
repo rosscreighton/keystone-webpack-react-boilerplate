@@ -26,6 +26,7 @@ async function main() {
   await installNVM();
   await installNode();
   await installYarn();
+  await installPM2();
   sshClient.dispose();
   console.log('DONE');
 }
@@ -111,6 +112,11 @@ async function installYarn() {
   await execCommand('echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list');
   await execCommand('apt-get update');
   await execCommand('apt-get -y install yarn');
+}
+
+async function installPM2() {
+  console.log('installing pm2');
+  await execCommand('yarn global add pm2');
 }
 
 main();
