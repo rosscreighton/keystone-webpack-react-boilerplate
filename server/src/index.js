@@ -12,6 +12,7 @@ keystone.init({
   'views': 'templates/views',
   'view engine': 'pug',
   'routes': routes,
+  'static': '../../client/dist',
 });
 
 keystone.import('models');
