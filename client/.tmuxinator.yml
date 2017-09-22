@@ -33,3 +33,4 @@ windows:
     - vim
   - shell:
   - server:
+    - yarn run build:dev
