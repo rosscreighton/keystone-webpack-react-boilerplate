@@ -1,3 +1,4 @@
+/* eslint quote-props: "off" */
 import keystone from 'keystone';
 import routes from './routes';
 
@@ -18,6 +19,7 @@ keystone.init({
 keystone.import('models');
 
 keystone.start(() => {
+  // eslint-disable-next-line no-console
   console.log(`keystone running in ${keystone.get('env')} mode`);
 
   if (process.env.NODE_ENV === 'production') {

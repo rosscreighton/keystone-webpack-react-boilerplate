@@ -5,6 +5,6 @@ const routes = {
   views: importRoutes('./views'),
 };
 
-export default function(app) {
+export default function (app) {
   app.get('/', routes.views.index);
 }
