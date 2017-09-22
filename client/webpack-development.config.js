@@ -1,25 +1,11 @@
-const path = require('path');
+const merge = require('webpack-merge');
+const shared = require('./webpack-shared.config.js');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 
-module.exports = {
-  entry: './src/index.js',
-  output: {
-    filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist'),
-  },
+module.exports = merge(shared, {
   devtool: 'eval-source-map',
-  module: {
-    rules: [
-      {
-        test: /\.js$/,
-        exclude: /(node_modules)/,
-        use: {
-          loader: 'babel-loader',
-        },
-      },
-    ],
-  },
+  watch: true,
   plugins: [
     new CleanWebpackPlugin(['dist']),
   ],
-};
+});

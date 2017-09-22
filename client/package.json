@@ -5,6 +5,7 @@
   "license": "MIT",
   "scripts": {
     "build:dev": "./node_modules/.bin/webpack --config ./webpack-development.config.js",
+    "build:prod": "./node_modules/.bin/webpack --config ./webpack-production.config.js",
     "lint": "./node_modules/.bin/eslint ./src"
   },
   "devDependencies": {
@@ -20,6 +21,7 @@
     "webpack": "^3.6.0"
   },
   "dependencies": {
+    "webpack-merge": "^4.1.0",
     "clean-webpack-plugin": "^0.1.16",
     "react": "^15.6.1",
     "react-dom": "^15.6.1"
