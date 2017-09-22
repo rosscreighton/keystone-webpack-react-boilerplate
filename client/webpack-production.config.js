@@ -2,6 +2,7 @@
 const webpack = require('webpack');
 const merge = require('webpack-merge');
 const shared = require('./webpack-shared.config.js');
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = merge(shared, {
   plugins: [
@@ -10,5 +11,6 @@ module.exports = merge(shared, {
         'NODE_ENV': JSON.stringify('production'),
       },
     }),
+    new UglifyJSPlugin(),
   ],
 });

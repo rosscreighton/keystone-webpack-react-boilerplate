@@ -20,10 +20,11 @@
     "babel-loader": "^7.1.2",
     "babel-preset-env": "^1.6.0",
     "babel-preset-react": "^6.24.1",
-    "webpack": "^3.6.0",
-    "webpack-merge": "^4.1.0",
     "clean-webpack-plugin": "^0.1.16",
     "react": "^15.6.1",
-    "react-dom": "^15.6.1"
+    "react-dom": "^15.6.1",
+    "uglifyjs-webpack-plugin": "^0.4.6",
+    "webpack": "^3.6.0",
+    "webpack-merge": "^4.1.0"
   }
 }
