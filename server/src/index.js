@@ -18,6 +18,7 @@ keystone.init({
   'static options': {
     etag: false,
     lastModified: false,
+    maxAge: 100 * 60 * 60 * 24 * 365, // 1 year in ms
   },
   'client bundle file': webpackManifest['app.js'],
 });
