@@ -1,6 +1,7 @@
 doctype html
 html
   head
+    link(rel="preload" href=`./${clientBundleFile}` as="script")
   body
     div#app-root
     script(src=`./${clientBundleFile}`)
