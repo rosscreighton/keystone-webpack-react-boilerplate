@@ -1,9 +1,12 @@
 const path = require('path');
+const ManifestPlugin = require('webpack-manifest-plugin');
 
 module.exports = {
-  entry: './src/index.js',
+  entry: {
+    app: './src/index.js',
+  },
   output: {
-    filename: 'bundle.js',
+    filename: '[name].[hash].js',
     path: path.resolve(__dirname, 'dist'),
   },
   resolve: {
@@ -23,4 +26,7 @@ module.exports = {
       },
     ],
   },
+  plugins: [
+    new ManifestPlugin(),
+  ],
 };
