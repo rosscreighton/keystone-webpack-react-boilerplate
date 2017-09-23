@@ -5,6 +5,17 @@ const shared = require('./webpack-shared.config.js');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = merge(shared, {
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /(node_modules)/,
+        use: {
+          loader: 'eslint-loader',
+        },
+      },
+    ],
+  },
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {
