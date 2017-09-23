@@ -1,6 +1,7 @@
 /* eslint quote-props: "off" */
 import keystone from 'keystone';
 import routes from './routes';
+import webpackManifest from '../../client/dist/manifest.json';
 
 keystone.init({
   'env': process.env.NODE_ENV,
@@ -18,6 +19,7 @@ keystone.init({
     etag: false,
     lastModified: false,
   },
+  'client bundle file': webpackManifest['app.js'],
 });
 
 keystone.import('models');
