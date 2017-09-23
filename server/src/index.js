@@ -1,6 +1,7 @@
 /* eslint quote-props: "off" */
 import keystone from 'keystone';
 import routes from './routes';
+// eslint-disable-next-line import/no-unresolved
 import webpackManifest from '../../client/dist/manifest.json';
 
 keystone.init({
