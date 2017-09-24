@@ -6,5 +6,5 @@ const routes = {
 };
 
 export default function (app) {
-  app.get('/', routes.views.index);
+  app.get('*', routes.views.index);
 }

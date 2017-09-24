@@ -11,11 +11,16 @@ module.exports = merge(shared, {
     proxy: {
       '/': {
         target: 'http://localhost:3000',
-        bypass(req, res, proxyOptions) {
-          if (req.path === '/') {
-            return false;
+        bypass(req) {
+          const isWebpackAsset = req.path.search(/\.js/) > -1;
+          const isKeystoneRequest = req.path.search(/keystone/) > -1;
+
+          if (isWebpackAsset && !isKeystoneRequest) {
+            // if this req is meant for devServer, fufill it
+            return req.path;
           }
-          return req.path;
+          // else, let the req fall through to backend
+          return false;
         },
       },
     },
