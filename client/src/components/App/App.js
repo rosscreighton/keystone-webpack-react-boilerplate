@@ -12,7 +12,7 @@ export default function App() {
       <div>
         <ul>
           <li><Link to="/">home</Link></li>
-          <li><Link to="/case-studies">case Studies</Link></li>
+          <li><Link to="/case-studies">case studies</Link></li>
           <li><Link to="/company">company</Link></li>
           <li><Link to="/contact">contact</Link></li>
           <li><Link to="/careers">careers</Link></li>
