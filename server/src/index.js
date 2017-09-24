@@ -1,8 +1,10 @@
 /* eslint quote-props: "off" */
 import keystone from 'keystone';
 import routes from './routes';
+
+const production = process.env.NODE_ENV === 'production';
 // eslint-disable-next-line import/no-unresolved
-import webpackManifest from '../../client/dist/manifest.json';
+const clientBundleFile = production ? require('../../client/dist/manifest.json')['app.js'] : 'app.js';
 
 keystone.init({
   'env': process.env.NODE_ENV,
@@ -21,7 +23,7 @@ keystone.init({
     lastModified: false,
     maxAge: 100 * 60 * 60 * 24 * 365, // 1 year in ms
   },
-  'client bundle file': webpackManifest['app.js'],
+  'client bundle file': clientBundleFile,
 });
 
 keystone.import('models');
@@ -30,7 +32,7 @@ keystone.start(() => {
   // eslint-disable-next-line no-console
   console.log(`keystone running in ${keystone.get('env')} mode`);
 
-  if (process.env.NODE_ENV === 'production') {
+  if (production) {
     // signals to pm2 that app is ready
     process.send('ready');
   }

@@ -3,8 +3,12 @@ const webpack = require('webpack');
 const merge = require('webpack-merge');
 const shared = require('./webpack-shared.config.js');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+const ManifestPlugin = require('webpack-manifest-plugin');
 
 module.exports = merge(shared, {
+  output: {
+    filename: '[name].[hash].js',
+  },
   module: {
     rules: [
       {
@@ -22,6 +26,7 @@ module.exports = merge(shared, {
         'NODE_ENV': JSON.stringify('production'),
       },
     }),
+    new ManifestPlugin(),
     new UglifyJSPlugin(),
   ],
 });
