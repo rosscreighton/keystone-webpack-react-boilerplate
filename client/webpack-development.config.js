@@ -22,7 +22,6 @@ module.exports = merge(shared, {
               options: {
                 modules: true,
                 localIdentName: '[hash:8]',
-                minimize: true,
               },
             },
             { loader: 'sass-loader' },
