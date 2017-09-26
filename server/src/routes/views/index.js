@@ -4,6 +4,7 @@ export default function (req, res) {
   const view = new View(req, res);
 
   view.render('index', {
-    clientBundleFile: keystone.get('client bundle file'),
+    clientJSFile: keystone.get('client js file'),
+    clientCSSFile: keystone.get('client css file'),
   });
 }

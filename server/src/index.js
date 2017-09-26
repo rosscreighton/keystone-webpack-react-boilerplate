@@ -3,8 +3,15 @@ import keystone from 'keystone';
 import routes from './routes';
 
 const production = process.env.NODE_ENV === 'production';
-// eslint-disable-next-line import/no-unresolved
-const clientBundleFile = production ? require('../../client/dist/manifest.json')['app.js'] : 'app.js';
+let clientJSFile = 'app.js';
+let clientCSSFile = 'app.css';
+
+if (production) {
+  // eslint-disable-next-line import/no-unresolved, global-require
+  const manifest = require('../../client/dist/manifest.json');
+  clientJSFile = manifest['app.js'];
+  clientCSSFile = manifest['app.css'];
+}
 
 keystone.init({
   'env': process.env.NODE_ENV,
@@ -23,7 +30,8 @@ keystone.init({
     lastModified: false,
     maxAge: 100 * 60 * 60 * 24 * 365, // 1 year in ms
   },
-  'client bundle file': clientBundleFile,
+  'client js file': clientJSFile,
+  'client css file': clientCSSFile,
 });
 
 keystone.import('models');

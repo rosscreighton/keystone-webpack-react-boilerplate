@@ -1,7 +1,10 @@
 import React from 'react';
+import './styles.scss';
 
 export default function LandingPage() {
   return (
-    <div>landing/case studies page</div>
+    <div styleName="ross-test">
+      landing/case studies page
+    </div>
   );
 }
